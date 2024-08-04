@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Loteria</title>
+
+        <script>
+            function loteria()
+            {
+                var alea = Math.round(Math.random()*1000);
+                return alea
+            }
+
+            var puntos = 0;
+            function ppal()
+            {
+                let numero = parseInt(document.getElementById("miNumero").value);
+                let a = loteria();
+                document.getElementById("ploteria").innerHTML = a;
+                if (a == numero)
+                    document.getElementById("p1").innerHTML = "se lo gano"
+                else
+                {
+                    if(numero > a)
+                        puntos++;
+                    document.getElementById("p1").innerHTML = "numeros = " + puntos;
+                }
+                {
+                    if (a % 2 == 0)
+                        document.getElementById("Par").innerHTML = "EL numero es par"
+                    else
+                        document.getElementById("Par").innerHTML = "EL numero es Impar"
+                }
+            }
+        </script>
+    </head>
+
+    <body>
+        <center>
+            <form>
+                <label>Mi numero</label> <input type="text" id="miNumero"><br><br>
+                <p id="ploteria">loteria</p>
+                <p id="Par">par o impar</p>
+            </form>
+            <button onclick="ppal()">Jugar</button>
+            <p id="p1">Puntaje</p>
+        </center>
+    </body>
+</html>

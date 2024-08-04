@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Chance</title>
+
+        <style>
+            body{
+                background-color: rgb(86, 153, 86);
+            }
+
+            label{
+                font-size: 35px;
+                }
+
+            h1{
+                font-size: 55px;
+            }
+
+            button{
+                border-radius: 20px;
+                height: auto;
+                width: auto;
+                font-size: 25px;
+                background-color: rgb(48, 163, 150);
+            }
+
+            input{
+                width: auto;
+                height: auto;
+                font-size: 25px;
+                text-align: center;
+                background-color: rgb(174, 215, 174);
+            }
+
+            p{
+                font-size: 30px;
+                background-color: aliceblue;
+                width: auto;
+                height: auto;
+            }
+
+        </style>
+
+        <script>
+            function NumAle()
+            {
+                var ale = Math.round(Math.random()*10000)
+                return ale
+            }
+            
+            function Chance()
+            {
+                var numUs = document.getElementById("Usua"). value;
+                var Apue = document.getElementById ("ApueUsua").value;
+                var ale = NumAle()
+                var LastAle = ale % 10;
+                var NumUsLa = numUs % 10;
+                var LastAle2 = ale % 100;
+                var NumUs2 = numUs % 100;
+                var Ganan; 
+        
+                if (numUs == ale){
+                    Ganan = Apue * 1000;
+                    document.getElementById("Won1").innerHTML = "su ganancia fue " + Ganan;
+                }
+
+                else if (NumUsLa == LastAle){
+                    Ganan = Apue * 20;
+                    document.getElementById("Won1").innerHTML = "su ganancia fue " + Ganan;
+                    document.getElementById("NumGana").innerHTML = "el numero ganador es " + ale;
+                }
+
+                else if (NumUs2 == LastAle2){
+                    Ganan = Apue * 20;
+                    document.getElementById("Won1").innerHTML = "Su ganancua fue " + Ganan;
+                    document.getElementById("NumGana").innerHTML = "el numero ganador es " + ale;
+                }
+
+                else if (numUs != ale)
+                    document.getElementById("Won1").innerHTML = "Siga Intentando"
+                    document.getElementById("NumGana").innerHTML = "el numero ganador es " + ale;
+
+                
+            }
+        </script>
+    </head>
+
+    <body>
+        <center>
+            <h1>El chancero</h1>
+            <hr>
+            <form>
+                <label>Ingrese su numero de 4 cifras</label><br>
+                <input type="text" name="Numusua" id="Usua"><br><br>
+                <label>¿Cuanto desea apostar?</label><br>
+                <input type="text" name="Apuesta" id="ApueUsua"><br><br>
+            </form>
+            <button type="button" onclick="Chance()">Jugar</button>
+            <p id="Won1"></p>
+            <p id="NumGana"></p>
+        </center>
+
+
+    </body>
+</html>

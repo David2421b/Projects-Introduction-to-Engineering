@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pares y nonis</title>
+
+<script>
+    function par(n)
+    {
+        if (n % 2 == 0)
+        {
+            return true;
+        }
+
+        else
+        {   
+            return false;
+        }
+    }
+
+    function ppal()
+    {
+        var n = document.getElementById ("numero"). value;
+        if (par(n))
+            document.getElementById("t1").innerHTML = "el numero " + n + " es par";
+        else
+            document.getElementById("t1").innerHTML = "el numero " + n + " es impar";
+    }
+
+</script>
+</head>
+<body>
+<center>
+<form>
+<input type="text" id="numero" value="34"><br><br>
+<button type="button" onclick = "ppal()"> Dame click </button>
+</form>
+</center>
+<h1 id="t1"> aqui la respuesta</h1>
+</body>
+</html>

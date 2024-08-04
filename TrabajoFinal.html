@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <title>Trabajo final</title>
+        
+        <style>
+            body{
+                background-image: url(BackGround\ body.jpg);
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-attachment: fixed;   
+            }
+
+            .result{
+                display: flex;
+                float: right;
+                margin: 1% 2%;
+                margin-bottom: 1%;
+            }
+
+            .result1:hover{
+                transform: scale(1.1);
+                transition: 0.3s;
+            }
+
+            .result2:hover{
+                transform: scale(1.1);
+                transition: 0.3s;
+            }
+
+            #marcador:hover{
+                transform: scale(1.1);
+                transition: 0.5s;
+            }
+
+            #intentos:hover{
+                transform: scale(1.1);
+                transition: 0.5s;
+            }
+
+            .result1{
+                margin-right: 7%;
+            }
+
+            .result label{
+                background-color: rgba(255, 0, 0, 0.682);
+                font-size: 20px;
+                font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+                border: solid;
+                
+            }
+
+            .result input{
+                font-size: 25px;
+                width: 195px;
+                text-align: center;
+                font-family: fantasy;
+                background-color: rgba(230, 216, 216, 0.87);
+                border-radius: 50% 0% 50% 0%;
+                border: solid;
+            }
+
+            marquee{
+                font-size: 62px;
+                background: transparent;
+                margin: 2% 25%;
+                font-style: oblique;
+                border: 4px solid rgb(0, 0, 0);
+                backdrop-filter: blur(5px);
+                color: white;
+            }
+
+            .Numbers{
+                display: flex;
+                margin: 0% 25%;
+                align-items: center;
+                justify-content: center;
+                height: 55px;
+                background-color: rgba(79, 75, 75, 0.834);
+            }
+
+            .Numbers p{
+                background-color: rgba(255, 255, 0, 0.866);
+                font-size: 40px;
+                width: 135px;
+                text-align: center;
+                border-radius: 30%;
+                font-family:monospace;
+            }
+
+            button{
+                font-size: 30px;
+                font-family:monospace;
+            }
+
+            #Play:hover{
+                transform: scale(1.3);
+                transition: 0.3s;
+                background-color: rgb(12, 202, 12);
+            }
+
+            #Reset:hover{
+                transform: scale(1.3);
+                transition: 0.3s;
+                background-color: red;
+            }
+
+            p{
+                font-size: 25px;
+            }
+
+            .Tachometer{
+                display: flex;
+                margin: 3% 2%;
+                align-items: center;
+                justify-content: space-around;
+            }
+
+            .TachometerInt label{
+                background-color: rgba(255, 0, 0, 0.682);
+                font-size: 45px;
+                font-style: oblique;
+                border: solid;
+                
+            }
+
+            .TachometerInt p{
+                font-size: 50px;
+                background-color: rgba(255, 166, 0, 0.91); 
+                border-radius: 50% 0% 50% 0%;
+                font-family:monospace;
+                border: solid;
+            }
+
+            hr{
+                width: 90%;
+                height: 7px;
+                background-color: black;
+                margin: 2%;
+            }
+        </style>
+
+<!--Comienzo Script-->
+
+        <script>
+            var puntosTotales = 0
+            var puntosPares = 0
+            var puntosImpares = 0
+            var puntosCapicuas = 0
+            var puntosMenores = 0
+            var puntosEntre = 0
+            var puntosPrimos = 0
+            var puntosSuma = 0
+            var puntosCompuestos = 0
+            var PromPares = 0
+            var percentCompue = 0
+            var MarcadorPun = 0
+            var MarcadorInt = 0
+
+//Comienzo procedimientos
+
+            function promPares(n)                                       //Ayuda a encontrar el promedio de numeros pares
+            {
+                let puntos = 0
+                let cont = 0
+                let prom = 0
+                for (i = 0; i < n.length; i++){
+                    let z = n[i]
+                    if (z % 2 == 0)
+                    {
+                        cont++
+                    }
+                }
+                prom = cont / n.length
+                let decimal = 3
+                let promTota = prom.toFixed(decimal)
+                return promTota
+            }
+
+            function pares(u)                                       //Revisa si es par o no
+            {
+                let puntos = 0
+                for (i = 0; i < u.length; i++){
+                    let z = u[i]
+                    if (z % 2 == 0)
+                    {
+                        puntos = puntos + 3
+                    }
+                    
+                }
+                return puntos
+            }
+
+            
+            function menor(m)                                       //Revisa si son menores a 2000
+            {
+                let puntos = 0
+                for (i = 0; i < m.length; i++){
+                    let z = m[i]
+                    if (z < 2000)
+                    {
+                        puntos = puntos + 1
+                    }
+                }
+                return puntos
+            }
+
+            function entre(o)                                       //Numerosa entre 2001 y 5000
+            {
+                let puntos = 0
+                for (i = 0; i < o.length; i++){
+                    let z = o[i]
+                    if (z > 2000 && z < 5000)
+                    {
+                        puntos = puntos + 2
+                    }
+                
+                    else
+                    {
+                        puntos = puntos + 0
+                    }
+                }
+                return puntos
+            }
+
+            function primos(p)                                      //Numeros primos
+            {
+                let puntos = 0
+                for (i = 0; i < p.length; i++){
+                    let z = p[i]
+                    let cont = 0
+                    for (j = 2; j <= Math.sqrt(z); j++){
+                        if (z % j === 0){
+                            cont++
+                            break
+                        }
+                    }
+                    if (cont == 0)
+                    {
+                    puntos = puntos + 5
+                    }
+                }
+                return puntos
+            }
+
+            function impares(q)                                     //Numeros Impares
+            {
+                let puntos = 0
+                for (i = 0; i < q.length; i++){
+                    let z = q[i]
+                    if (z % 2 != 0)
+                    {
+                        puntos = puntos + 1
+                    }
+                }
+                return puntos
+            }
+
+            function suma(r)                                        //Numeros que sumadas sus cifras da 15
+            {
+                let puntos = 0
+                for (i = 0; i < r.length; i++){
+                    let z = r[i]
+                    let firstNum = parseInt(z / 1000)
+                    let secondNum = parseInt(z % 1000 / 100)
+                    let thirdNum = parseInt(z % 100 / 10)
+                    let fourthNum = parseInt(z % 10)
+                    let SumaDigit = firstNum + secondNum + thirdNum + fourthNum
+                    if (SumaDigit == 15)
+                    {
+                        puntos = puntos + 10
+                    }
+                }
+                return puntos
+            }
+
+            function compuesto(s)                                    //Numeros Compuestos
+            {
+                let puntos = 0
+                for (i = 0; i < s.length; i++){
+                    let z = s[i]
+                    let cont = 0
+                    for (j = 2; j <= Math.sqrt(z); j++){
+                        if (z % j === 0){
+                            cont++
+                            break
+                        }
+                    }
+                    if (cont > 0)
+                    {
+                        puntos = puntos + 3
+                    }
+                }
+                return puntos
+            }
+
+            function percentCompu(v)                                   //Ayuda a encotrar el porcentaje de numeros compuestos
+            {
+                
+                let percent = 0
+                let cont2 = 0
+                for (i = 0; i < v.length; i++){
+                    let z = v[i]
+                    let cont = 0
+                    for (j = 2; j <= Math.sqrt(z); j++){    
+                        if (z % j === 0){
+                            cont++
+                            break
+                        }
+                    }
+                    if (cont > 0)
+                    {
+                        cont2++
+                    }
+                }
+                percent = ((cont2 / v.length) * 100)
+                let decimal = 2
+                let perecentTota = percent.toFixed(decimal)
+                return perecentTota
+            }
+
+            function capicua(t)                                        //Encuentra los numeros capicuas del vector
+            {
+                let puntos = 0
+                for (i = 0; i < t.length; i++){
+                    let z = t[i]
+                    let firstNum = String(parseInt(z / 1000))
+                    let secondNum = String(parseInt(z % 1000 / 100))
+                    let thirdNum = String(parseInt(z % 100 / 10))
+                    let fourthNum = String(parseInt (z % 10))
+                    let NumCapicua = fourthNum + thirdNum + secondNum + firstNum
+                    let NumCapicua2 = parseInt(NumCapicua)
+                    if (z == NumCapicua2)
+                    {
+                        puntos = puntos + 10
+                    }
+                }
+                return puntos
+            }
+
+//Comienzo de la funcion principal
+
+            function ppal()                                         //Funcion Principal
+            {
+                var NUMEROS = []
+                for (i = 0; i < 15; i++){
+                    var num = Math.round(Math.random()*10000).toString().padStart(4,'0')
+                    NUMEROS.push(num)
+                    }
+            
+                // Calcular el total de los puntos obtenidos
+                puntosPares = pares(NUMEROS)
+                puntosMenores = menor(NUMEROS)
+                puntosEntre = entre(NUMEROS)
+                puntosPrimos = primos(NUMEROS)
+                puntosImpares = impares(NUMEROS)
+                puntosSuma = suma(NUMEROS)
+                puntosCompuestos = compuesto(NUMEROS)
+                puntosCapicuas = capicua(NUMEROS)
+                puntosTotales = puntosCompuestos + puntosSuma + puntosImpares + puntosPrimos + puntosEntre + puntosMenores + puntosPares + puntosCapicuas
+                PromPares = promPares(NUMEROS)
+                percentCompue = percentCompu(NUMEROS)
+                MarcadorPun = puntosTotales + MarcadorPun
+                MarcadorInt++
+            
+                document.getElementById("Score").innerHTML = "⍟" + puntosTotales
+                document.getElementById("PromPar").innerHTML = PromPares
+                document.getElementById("Percent").innerHTML = percentCompue + "%"
+                document.getElementById("marcador").value = "⍟" + MarcadorPun
+                document.getElementById("intentos").value = MarcadorInt
+            
+                document.getElementById("Num1").innerHTML = NUMEROS[0]
+                document.getElementById("Num2").innerHTML = NUMEROS[1]
+                document.getElementById("Num3").innerHTML = NUMEROS[2]
+                document.getElementById("Num4").innerHTML = NUMEROS[3]
+                document.getElementById("Num5").innerHTML = NUMEROS[4]
+                document.getElementById("Num6").innerHTML = NUMEROS[5]
+                document.getElementById("Num7").innerHTML = NUMEROS[6]
+                document.getElementById("Num8").innerHTML = NUMEROS[7]
+                document.getElementById("Num9").innerHTML = NUMEROS[8]
+                document.getElementById("Num10").innerHTML = NUMEROS[9]
+                document.getElementById("Num11").innerHTML = NUMEROS[10]
+                document.getElementById("Num12").innerHTML = NUMEROS[11]
+                document.getElementById("Num13").innerHTML = NUMEROS[12]
+                document.getElementById("Num14").innerHTML = NUMEROS[13]
+                document.getElementById("Num15").innerHTML = NUMEROS[14]           
+            }
+
+            function reset()                                        //Boton Reset
+            {
+                puntosTotales = 0
+                percentCompue = 0
+                PromPares = 0
+                MarcadorPun = 0
+                MarcadorInt = 0
+            
+                document.getElementById("Score").innerHTML = "⍟" + "?"
+                document.getElementById("PromPar").innerHTML = "?"
+                document.getElementById("Percent").innerHTML = "?"
+                document.getElementById("marcador").value = "⍟" + MarcadorPun
+                document.getElementById("intentos").value = MarcadorInt
+            
+                document.getElementById("Num1").innerHTML = "?"
+                document.getElementById("Num2").innerHTML = "?"
+                document.getElementById("Num3").innerHTML = "?"
+                document.getElementById("Num4").innerHTML = "?"
+                document.getElementById("Num5").innerHTML = "?"
+                document.getElementById("Num6").innerHTML = "?"
+                document.getElementById("Num7").innerHTML = "?"
+                document.getElementById("Num8").innerHTML = "?"
+                document.getElementById("Num9").innerHTML = "?"
+                document.getElementById("Num10").innerHTML = "?"
+                document.getElementById("Num11").innerHTML = "?"
+                document.getElementById("Num12").innerHTML = "?"
+                document.getElementById("Num13").innerHTML = "?"
+                document.getElementById("Num14").innerHTML = "?"
+                document.getElementById("Num15").innerHTML = "?" 
+            }
+        
+        </script>
+    </head>
+
+    <body>
+        <div class="result">
+            <div class="result1">
+                <center><label for="marcador">Total de tus Puntos ⍟</label></center>
+                <input type="text" id="marcador"><br>
+            </div>
+    
+            <div class="result2">
+                <center><label for="intentos">Intentos</label></center>
+                <input type="text" id="intentos"><br>
+            </div>
+        </div>
+
+        <center>
+            <marquee id="titulito" behavior="scroll" direction="left">Tumba Locas</marquee>
+
+            <div class="Numbers">
+                <p id="Num1">?</p>&nbsp 
+                <p id="Num2">?</p>&nbsp
+                <p id="Num3">?</p>&nbsp
+                <p id="Num4">?</p>&nbsp
+                <p id="Num5">?</p>&nbsp
+            </div>
+
+            <div class="Numbers">
+                <p id="Num6">?</p>&nbsp
+                <p id="Num7">?</p>&nbsp
+                <p id="Num8">?</p>&nbsp
+                <p id="Num9">?</p>&nbsp
+                <p id="Num10">?</p>&nbsp
+            </div>
+
+            <div class="Numbers">
+                <p id="Num11">?</p>&nbsp
+                <p id="Num12">?</p>&nbsp
+                <p id="Num13">?</p>&nbsp
+                <p id="Num14">?</p>&nbsp
+                <p id="Num15">?</p>&nbsp
+            </div><br>
+
+            <button id="Play" type="button"  onclick="ppal()">Play</button>
+            <button id="Reset" type="button" onclick="reset()">Reset</button>
+
+            <hr>
+
+            <div class="Tachometer">
+                <div class="TachometerInt">
+                    <label for="Promedio Pares"><strong>Promedio numeros pares</strong></label><br>
+                    <p id="PromPar">?</p>
+                </div>
+
+                <div class="TachometerInt">
+                    <label for="puntos"><strong>Puntos</strong></label><br>
+                    <p id="Score">⍟?</p>
+                </div>
+
+                <div class="TachometerInt">
+                    <label for="Compuond Percent"><strong>Porcentaje numeros compuestos</strong></label><br>
+                    <p id="Percent">?</p>
+                </div>
+            </div>
+        </center>
+    </body>
+</html>
